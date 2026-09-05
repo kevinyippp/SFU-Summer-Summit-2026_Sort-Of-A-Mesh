@@ -12,6 +12,7 @@ public class Trash : DragObject2D
 
     private void Awake()
     {
+        base.Awake();
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateColour();
     }
@@ -44,13 +45,10 @@ public class Trash : DragObject2D
         }
     }
 
-
-
-
-
-    void OnMouseUp()
+    
+    protected override void StopDragging()
     {
-        isDragging = false;
+        base.StopDragging();
 
         if (currentTrashCan != null)
         {
