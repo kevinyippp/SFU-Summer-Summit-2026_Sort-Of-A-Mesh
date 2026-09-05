@@ -6,6 +6,7 @@ public class DragObject2D : MonoBehaviour
     private Vector3 offset;
     private Camera cam;
     private bool isDragging = false;
+    private bool inTrashCan = false;
 
     void Start()
     {
@@ -21,6 +22,12 @@ public class DragObject2D : MonoBehaviour
     void OnMouseUp()
     {
         isDragging = false;
+
+        if (inTrashCan)
+        {
+            Score.ScoreInstance.AddPoint();
+            Destroy(gameObject);
+        }
     }
 
     void Update()
@@ -29,6 +36,7 @@ public class DragObject2D : MonoBehaviour
         {
             transform.position = GetMouseWorldPos() + offset;
         }
+        
     }
 
     private Vector3 GetMouseWorldPos()
@@ -36,5 +44,23 @@ public class DragObject2D : MonoBehaviour
         Vector3 mousePoint = Mouse.current.position.ReadValue();
         mousePoint.z = -cam.transform.position.z;
         return cam.ScreenToWorldPoint(mousePoint);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<TrashCan>() != null)
+        {
+            inTrashCan = true;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<TrashCan>() != null)
+        {
+            inTrashCan = false;
+        }
     }
 }
