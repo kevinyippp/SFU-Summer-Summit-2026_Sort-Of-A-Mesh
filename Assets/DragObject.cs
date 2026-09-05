@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem; // add this
 
 public class DragObject2D : MonoBehaviour
@@ -7,18 +7,23 @@ public class DragObject2D : MonoBehaviour
     private Camera cam;
     protected bool isDragging = false;
 
-    void Awake()
+    protected void Awake()
     {
         cam = Camera.main;
     }
 
     void OnMouseDown()
     {
+        StartDragging();
+    }
+
+    public void StartDragging()
+    {
         offset = transform.position - GetMouseWorldPos();
         isDragging = true;
     }
 
-    void OnMouseUp()
+    protected virtual void StopDragging()
     {
         isDragging = false;
     }
@@ -28,11 +33,20 @@ public class DragObject2D : MonoBehaviour
         if (isDragging)
         {
             transform.position = GetMouseWorldPos() + offset;
+
+            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                StopDragging();
+            }
         }
-        
     }
 
     private Vector3 GetMouseWorldPos()
+    {
+        return GetMouseWorldPosition(cam);
+    }
+
+    public static Vector3 GetMouseWorldPosition(Camera cam)
     {
         Vector3 mousePoint = Mouse.current.position.ReadValue();
         mousePoint.z = -cam.transform.position.z;
