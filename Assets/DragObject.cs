@@ -5,9 +5,9 @@ public class DragObject2D : MonoBehaviour
 {
     private Vector3 offset;
     private Camera cam;
-    private bool isDragging = false;
+    protected bool isDragging = false;
 
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
     }
@@ -29,6 +29,7 @@ public class DragObject2D : MonoBehaviour
         {
             transform.position = GetMouseWorldPos() + offset;
         }
+        
     }
 
     private Vector3 GetMouseWorldPos()
@@ -37,4 +38,5 @@ public class DragObject2D : MonoBehaviour
         mousePoint.z = -cam.transform.position.z;
         return cam.ScreenToWorldPoint(mousePoint);
     }
+
 }
