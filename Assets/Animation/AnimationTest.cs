@@ -12,6 +12,10 @@ public class AnimationTest : MonoBehaviour
     [SerializeField] private float waveSpacing = 0.02f;
     [SerializeField] private float movementAmplitude = 30f;
 
+    private float startingAnimationSpeed = 6f;
+    private float startingWaveSpacing = 0.02f;
+    private float startingMovementAmplitude = 30f;
+
     [Header("Break")]
     [SerializeField] private float breakSpeed = 200f;
     [SerializeField] private float hideDistance = 500f;
@@ -27,6 +31,11 @@ public class AnimationTest : MonoBehaviour
 
     private void Awake()
     {
+
+        startingAnimationSpeed = animationSpeed;
+        startingWaveSpacing = waveSpacing;
+        startingMovementAmplitude = movementAmplitude;
+
         if (Instance != null && Instance != this)
         {
             Debug.LogError("More than one AnimationTest combo system exists in the scene.");
@@ -134,6 +143,9 @@ public class AnimationTest : MonoBehaviour
 
     public void BreakCombo()
     {
+        animationSpeed = startingAnimationSpeed;
+        waveSpacing = startingWaveSpacing;
+        movementAmplitude = startingMovementAmplitude;
         SetCombo(0);
     }
 
