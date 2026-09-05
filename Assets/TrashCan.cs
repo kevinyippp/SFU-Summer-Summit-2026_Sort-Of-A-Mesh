@@ -19,8 +19,18 @@ public class TrashCan : MonoBehaviour
         Score.ScoreInstance.AddPoints(points);
 
         string feedbackText = points > 0 ? $"+{points}" : points.ToString();
-        // TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
+        TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
 
-        Destroy(trash.gameObject);
+        TrashDropAnimation dropAnimation = trash.GetComponent<TrashDropAnimation>();
+
+        if (dropAnimation != null)
+        {
+            dropAnimation.Play(transform.position);
+        }
+        else
+        {
+            Debug.LogWarning(trash.gameObject.name + " does not have TrashDropAnimation.");
+            Destroy(trash.gameObject);
+        }
     }
 }
