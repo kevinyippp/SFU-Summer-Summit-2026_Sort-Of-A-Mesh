@@ -11,7 +11,6 @@ public class Trash : DragObject2D
         Debug.Log("Start is called");
     }
 
-    # overwrites dragObject behaviour
     void OnMouseUp()
     {
         isDragging = false;
