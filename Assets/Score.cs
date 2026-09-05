@@ -15,9 +15,9 @@ public class Score : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void AddPoint()
+    public void AddPoints(int points)
     {
-        score++;
+        score += points;
         UpdateScoreText();
     }
 
