@@ -19,7 +19,7 @@ public class TrashCan : MonoBehaviour
         Score.ScoreInstance.AddPoints(points);
 
         string feedbackText = points > 0 ? $"+{points}" : points.ToString();
-        TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
+        // TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
 
         Destroy(trash.gameObject);
     }
