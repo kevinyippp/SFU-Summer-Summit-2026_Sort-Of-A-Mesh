@@ -4,7 +4,7 @@ public class TrashSpawner : MonoBehaviour
 {
     public static TrashSpawner Instance;
 
-    [SerializeField] private GameObject trashPrefab;
+    [SerializeField] public GameObject trashPrefab;
 
     void Awake()
     {
