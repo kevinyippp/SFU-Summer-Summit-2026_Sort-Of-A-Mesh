@@ -1032,6 +1032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c878b979db7023de4a3b5b2e3eca9cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  genericDropSound: {fileID: 8300000, guid: 8421af0d8d5720849ac08f02d908c9d3, type: 3}
+  correctDropSound: {fileID: 8300000, guid: ce3ab97833eb2614fb20413e046b9c4f, type: 3}
+  incorrectDropSound: {fileID: 8300000, guid: 274ecedeb58a28646a4aef066821f770, type: 3}
 --- !u!4 &336265264
 Transform:
   m_ObjectHideFlags: 0
