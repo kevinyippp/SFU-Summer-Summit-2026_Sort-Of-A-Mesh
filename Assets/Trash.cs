@@ -97,7 +97,6 @@ public class Trash : DragObject2D
         };
 
         Sprite[] sprites = Resources.LoadAll<Sprite>(folder);
-        Debug.Log($"Loaded {sprites.Length} sprites from Resources/{folder}");
 
         Sprite selectedSprite = null;  
 
