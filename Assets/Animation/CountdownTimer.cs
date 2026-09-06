@@ -12,6 +12,16 @@ public class CountdownTimer : MonoBehaviour
 
     [SerializeField] private Image countdownBarFill;
 
+    [Header("Time Limit Visualization")]
+    [Tooltip("Assign the background containing the fill and mask, not the whole timer UI.")]
+    [SerializeField] private RectTransform timeLimitBar;
+    [SerializeField, Min(0.01f)] private float barResizeDuration = 0.25f;
+
+    private float originalBarWidth;
+    private float referenceTimeLimit;
+    private float displayedBarRatio = 1f;
+    private bool barInitialized;
+
     private bool isRunning;
 
     public float RemainingTime { get; private set; }
@@ -19,14 +29,74 @@ public class CountdownTimer : MonoBehaviour
     public bool HasFinished { get; private set; }
 
     public float StartingTime => startingTime;
+    public bool IsRunning => isRunning;
+
+    // Change the capacity without refilling the countdown or unpausing it.
+    public void SetTimeLimit(float seconds)
+    {
+        InitializeBar();
+        startingTime = Mathf.Max(0f, seconds);
+        RemainingTime = Mathf.Min(RemainingTime, startingTime);
+        UpdateTimerText();
+        if (startingTime <= 0f && !HasFinished)
+        {
+            isRunning = false;
+            FinishTimer();
+        }
+    }
 
     private void Start()
     {
+        InitializeBar();
         ResetTimer();
+    }
+
+    private void InitializeBar()
+    {
+        if (barInitialized) return;
+        referenceTimeLimit = Mathf.Max(0.1f, startingTime);
+        if (countdownBarFill != null &&
+            (timeLimitBar == null || timeLimitBar == countdownBarFill.rectTransform))
+        {
+            Transform candidate = countdownBarFill.transform.parent;
+            while (candidate != null && candidate.GetComponent<Canvas>() == null)
+            {
+                if (candidate.name == "CountdownBarBackground")
+                {
+                    timeLimitBar = candidate as RectTransform;
+                    break;
+                }
+                candidate = candidate.parent;
+            }
+        }
+        if (timeLimitBar != null)
+        {
+            originalBarWidth = timeLimitBar.rect.width;
+            if (countdownBarFill != null && countdownBarFill.transform.parent == timeLimitBar)
+            {
+                // Keep the fill within the background as its width changes.
+                RectTransform fill = countdownBarFill.rectTransform;
+                fill.anchorMin = Vector2.zero;
+                fill.anchorMax = Vector2.one;
+                fill.offsetMin = Vector2.zero;
+                fill.offsetMax = Vector2.zero;
+                fill.localScale = Vector3.one;
+            }
+        }
+        barInitialized = true;
     }
 
     private void Update()
     {
+        if (timeLimitBar != null && barInitialized)
+        {
+            float targetRatio = startingTime / referenceTimeLimit;
+            displayedBarRatio = Mathf.MoveTowards(displayedBarRatio, targetRatio,
+                Time.unscaledDeltaTime / Mathf.Max(0.01f, barResizeDuration));
+            timeLimitBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
+                originalBarWidth * displayedBarRatio);
+        }
+
         if (!isRunning)
         {
             return;
@@ -55,11 +125,11 @@ public class CountdownTimer : MonoBehaviour
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
 
-        timerText.text = $"{minutes:00}:{seconds:00}";
+        if (timerText != null) timerText.text = $"{minutes:00}:{seconds:00}";
 
         if (countdownBarFill != null)
         {
-            countdownBarFill.fillAmount = Mathf.Clamp01(RemainingTime / startingTime);
+            countdownBarFill.fillAmount = Mathf.Clamp01(RemainingTime / Mathf.Max(0.1f, startingTime));
         }
     }
 
@@ -77,6 +147,8 @@ public class CountdownTimer : MonoBehaviour
 
     public void ResetTimer()
     {
+        InitializeBar();
+        startingTime = Mathf.Max(0.1f, startingTime);
         RemainingTime = startingTime;
         isRunning = true;
         HasFinished = false;
@@ -86,7 +158,8 @@ public class CountdownTimer : MonoBehaviour
 
     public void ResetTimer(float newStartingTime)
     {
-        startingTime = newStartingTime;
+        InitializeBar();
+        startingTime = Mathf.Max(0.1f, newStartingTime);
         ResetTimer();
     }
 
