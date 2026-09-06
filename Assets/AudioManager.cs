@@ -5,6 +5,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    [SerializeField] public AudioClip correctDropSound;
+    [SerializeField] public AudioClip incorrectDropSound;
+
     private AudioSource audioSource;
 
     private void Awake()
@@ -28,13 +31,16 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip, float delay = 0f)
     {
-        if (clip != null)
+        if (clip == null)
         {
-            if (delay > 0f)
-                StartCoroutine(PlaySoundDelayed(clip, delay));
-            else
-                audioSource.PlayOneShot(clip);
+            return;
         }
+        
+        if (delay > 0f)
+            StartCoroutine(PlaySoundDelayed(clip, delay));
+        else
+            audioSource.PlayOneShot(clip);
+        
     }
 
     private IEnumerator PlaySoundDelayed(AudioClip clip, float delay)
