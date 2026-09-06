@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
+    [SerializeField] private GameObject restartButton;
+
 
     [Header("Combo Time Rewards")]
     [SerializeField, Min(1)] private int timeRewardComboInterval = 5;
@@ -99,6 +102,11 @@ public class GameManager : MonoBehaviour
         {
             finalScoreText.gameObject.SetActive(false);
         }
+        if (restartButton != null)
+        {
+            restartButton.SetActive(false);
+        }
+
     }
 
     private void Update()
@@ -217,5 +225,14 @@ public class GameManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
         }
+        if (restartButton != null)
+        {
+            restartButton.SetActive(true);
+        }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
