@@ -6,8 +6,8 @@ public class Trash : DragObject2D
 
     public TrashType Type => typeOfTrash;
 
-    private TrashCan currentTrashCan;
     private SpriteRenderer spriteRenderer;
+    private Collider2D myCollider;
     public string spriteName;
     [SerializeField] public AudioClip trashDropSound;
 
@@ -15,8 +15,9 @@ public class Trash : DragObject2D
     {
         base.Awake();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        myCollider = GetComponent<Collider2D>();
         updateSprite();
-        
+
     }
 
     public void SetTrashType(TrashType newType, string spriteName = null)
@@ -140,28 +141,31 @@ public class Trash : DragObject2D
     {
         base.StopDragging();
 
-        if (currentTrashCan != null)
-        {
-            currentTrashCan.HandleTrashDropped(this);
-        }
-    }
+        TrashCan trashCan = FindOverlappingTrashCan();
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        TrashCan trashCan = other.GetComponent<TrashCan>();
         if (trashCan != null)
         {
-            currentTrashCan = trashCan;
+            trashCan.HandleTrashDropped(this);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private TrashCan FindOverlappingTrashCan()
     {
-        TrashCan trashCan = other.GetComponent<TrashCan>();
-
-        if (trashCan != null && trashCan == currentTrashCan)
+        if (myCollider == null)
         {
-            currentTrashCan = null;
+            return null;
         }
+
+        foreach (TrashCan can in FindObjectsByType<TrashCan>(FindObjectsSortMode.None))
+        {
+            Collider2D canCollider = can.GetComponent<Collider2D>();
+
+            if (canCollider != null && myCollider.IsTouching(canCollider))
+            {
+                return can;
+            }
+        }
+
+        return null;
     }
 }
