@@ -36,7 +36,11 @@ public class AudioManager : MonoBehaviour
             audioSource.clip = backgroundMusic;
             // This doesn't affect the other sounds, since they use PlayOneShot (which ignores loop)
             audioSource.loop = true;
-            audioSource.Play();
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         } else
         {
             Debug.LogError("Background music not found");
@@ -59,7 +63,7 @@ public class AudioManager : MonoBehaviour
         audioSource.PlayOneShot(scoreIncreaseSounds[soundIndex], 2.0f);
     }
 
-    public void PlaySound(AudioClip clip, float delay = 0f)
+    public void PlaySound(AudioClip clip, float delay = 0f, float volumeScale = 1.0f)
     {
         if (clip == null)
         {
@@ -67,16 +71,16 @@ public class AudioManager : MonoBehaviour
         }
         
         if (delay > 0f)
-            StartCoroutine(PlaySoundDelayed(clip, delay));
+            StartCoroutine(PlaySoundDelayed(clip, delay, volumeScale));
         else
-            audioSource.PlayOneShot(clip);
+            audioSource.PlayOneShot(clip, volumeScale);
         
     }
 
-    private IEnumerator PlaySoundDelayed(AudioClip clip, float delay)
+    private IEnumerator PlaySoundDelayed(AudioClip clip, float delay, float volumeScale = 1.0f)
     {
         yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(clip);
+        audioSource.PlayOneShot(clip, volumeScale);
     }
 
 }
