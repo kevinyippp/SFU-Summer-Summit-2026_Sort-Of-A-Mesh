@@ -37,8 +37,6 @@ public class AudioManager : MonoBehaviour
             // This doesn't affect the other sounds, since they use PlayOneShot (which ignores loop)
             audioSource.loop = true;
 
-            // Awake can run again on a scene reload before the duplicate destroys itself;
-            // only start playback if this instance isn't already the one playing it.
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
