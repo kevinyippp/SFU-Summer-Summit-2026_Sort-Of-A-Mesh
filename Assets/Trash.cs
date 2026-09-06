@@ -8,6 +8,7 @@ public class Trash : DragObject2D
 
     private TrashCan currentTrashCan;
     private SpriteRenderer spriteRenderer;
+    public string spriteName;
     [SerializeField] public AudioClip trashDropSound;
 
     private void Awake()
@@ -18,10 +19,10 @@ public class Trash : DragObject2D
         
     }
 
-    public void SetTrashType(TrashType newType)
+    public void SetTrashType(TrashType newType, string spriteName = null)
     {
         typeOfTrash = newType;
-        updateSprite();
+        updateSprite(newType, spriteName);
 
     }
 
@@ -44,8 +45,7 @@ public class Trash : DragObject2D
         }
     }
 
-    void LoadDropSound(string itemName)
-    {   
+    string cleanItemName(string itemName) {
         int underscoreIndex = itemName.LastIndexOf('_');
         if (underscoreIndex >= 0)
         {
@@ -56,6 +56,12 @@ public class Trash : DragObject2D
                 itemName = itemName.Substring(0, underscoreIndex);
             }
         }
+        return itemName;
+    }
+
+    void LoadDropSound(string itemName)
+    {   
+        itemName = cleanItemName(itemName);
 
         string folder = typeOfTrash switch
         {
@@ -77,9 +83,11 @@ public class Trash : DragObject2D
     }
 
 
-    private void updateSprite()
+    private void updateSprite(TrashType? trashType = null, string newSpriteName = null)
     {
-        string folder = typeOfTrash switch
+        TrashType selectedTrashType = trashType ?? typeOfTrash;
+
+        string folder = selectedTrashType switch
         {
             TrashType.Garbage => "Trash/Garbage",
             TrashType.Organic => "Trash/Organic",
@@ -90,26 +98,41 @@ public class Trash : DragObject2D
 
         Sprite[] sprites = Resources.LoadAll<Sprite>(folder);
 
-        if (sprites.Length > 0)
+        Sprite selectedSprite = null;  
+
+        if (!string.IsNullOrEmpty(newSpriteName))
         {
-            spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+            selectedSprite = System.Array.Find(
+                sprites,
+                sprite => sprite.name == newSpriteName
+            );
 
-            LoadDropSound(spriteRenderer.sprite.name);
-
-            BoxCollider2D col = GetComponent<BoxCollider2D>();
-
-            CapObjectSize();
-
-            if (col != null)
+            if (selectedSprite == null)
             {
-                col.size = spriteRenderer.sprite.bounds.size;
-                col.offset = spriteRenderer.sprite.bounds.center;
+                Debug.LogError(
+                    $"Could not find sprite '{newSpriteName}' in Resources/{folder}"
+                );
+                return;
             }
-            
         }
         else
         {
-            Debug.LogError($"No sprites found in Resources/{folder}");
+            selectedSprite = sprites[Random.Range(0, sprites.Length)];
+        }
+
+        spriteName = cleanItemName(selectedSprite.name);
+        spriteRenderer.sprite = selectedSprite;
+
+        LoadDropSound(selectedSprite.name);
+
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+
+        CapObjectSize();
+
+        if (col != null)
+        {
+            col.size = selectedSprite.bounds.size;
+            col.offset = selectedSprite.bounds.center;
         }
     }
 

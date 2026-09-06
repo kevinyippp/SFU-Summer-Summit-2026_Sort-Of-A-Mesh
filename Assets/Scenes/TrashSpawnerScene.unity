@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::CDWarningAnimation
   timer: {fileID: 343689254}
   timerBar: {fileID: 814802318}
@@ -1791,6 +1791,37 @@ MonoBehaviour:
   maximumShake: 10
   breakSpeed: 200
   hideDistance: 500
+--- !u!1 &832133387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832133388}
+  m_Layer: 0
+  m_Name: PreviewPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &832133388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832133387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.5108, y: -1.47226, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832975522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2248,6 +2279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashSpawner
   trashPrefab: {fileID: 5015985271319193115, guid: 4a7e1afbb4edd8f7aa4f792dda0fc700, type: 3}
+  previewPosition: {fileID: 832133388}
+  previewPrefab: {fileID: 6346035951381765146, guid: 7e7a3e1b923d006faafe11d8354c944f, type: 3}
 --- !u!4 &1616311457
 Transform:
   m_ObjectHideFlags: 0
@@ -2602,3 +2635,4 @@ SceneRoots:
   - {fileID: 336265264}
   - {fileID: 2081709102}
   - {fileID: 832975524}
+  - {fileID: 832133388}

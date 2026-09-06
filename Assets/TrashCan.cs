@@ -24,11 +24,11 @@ public class TrashCan : MonoBehaviour
         bool isCorrect =
             trash.Type == typeOfTrash;
 
-        int points = isCorrect ? 1 : -2;
+        int points = isCorrect ? 10 : -20;
 
         if (Score.ScoreInstance != null)
         {
-            Score.ScoreInstance.AddPoints(points);
+            points = Score.ScoreInstance.AddPoints(points);
         }
         else
         {

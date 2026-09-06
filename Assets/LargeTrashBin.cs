@@ -12,6 +12,13 @@ public class LargeTrashBin : MonoBehaviour
         Instance = this;
         cam = Camera.main;
         clickArea = GetComponent<CircleCollider2D>();
+
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = -200;
+        }
     }
 
     void OnMouseDown()
