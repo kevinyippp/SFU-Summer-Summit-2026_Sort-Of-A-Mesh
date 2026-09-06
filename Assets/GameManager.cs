@@ -1,13 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Score))]
-[RequireComponent(typeof(ComboSystem))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-    private Score scoreSystem;
-    private ComboSystem comboSystem;
 
     private void Awake()
     {
@@ -18,21 +13,31 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        scoreSystem = GetComponent<Score>();
-        comboSystem = GetComponent<ComboSystem>();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 
     public void ProcessTrashResult(int points)
     {
-        scoreSystem.AddPoints(points);
+        if (Score.ScoreInstance == null)
+        {
+            Debug.LogError("Score system was not found.");
+            return;
+        }
 
-        if (points > 0)
+        if (ComboDisplay.Instance == null)
         {
-            comboSystem.AddCombo();
+            Debug.LogError("ComboDisplay was not found.");
+            return;
         }
-        else
-        {
-            comboSystem.BreakCombo();
-        }
+
+        Score.ScoreInstance.AddPoints(points);
+        ComboDisplay.Instance.RegisterResult(points);
     }
 }
