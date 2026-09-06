@@ -24,6 +24,25 @@ public class GameManager : MonoBehaviour
 
     private float currentTimerDuration;
 
+    private readonly System.Collections.Generic.Dictionary<TrashType, int> sortedCounts =
+        new System.Collections.Generic.Dictionary<TrashType, int>();
+    private readonly System.Collections.Generic.HashSet<Trash> recordedTrash =
+        new System.Collections.Generic.HashSet<Trash>();
+
+    public int FinalScore { get; private set; }
+
+    public int GetSortedCount(TrashType type)
+    {
+        return sortedCounts.TryGetValue(type, out int count) ? count : 0;
+    }
+
+    public bool RecordTrashDrop(Trash trash, bool isCorrect)
+    {
+        if (IsGameOver || trash == null || !recordedTrash.Add(trash)) return false;
+        if (isCorrect) sortedCounts[trash.Type] = GetSortedCount(trash.Type) + 1;
+        return true;
+    }
+
     [Header("Round Pressure")]
     [SerializeField, Min(5f)] private float targetRoundSeconds = 30f;
     [SerializeField, Min(0f)] private float maximumComboExtensionSeconds = 5f;
@@ -194,6 +213,7 @@ public class GameManager : MonoBehaviour
         }
 
         IsGameOver = true;
+        FinalScore = finalScore;
 
         if (finalScoreText != null)
         {

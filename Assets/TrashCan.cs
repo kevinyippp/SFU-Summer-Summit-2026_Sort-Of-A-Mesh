@@ -24,6 +24,13 @@ public class TrashCan : MonoBehaviour
         bool isCorrect =
             trash.Type == typeOfTrash;
 
+        // Count actual items once, independently of score multipliers and bonuses.
+        if (GameManager.Instance != null &&
+            !GameManager.Instance.RecordTrashDrop(trash, isCorrect))
+        {
+            return;
+        }
+
         int points = isCorrect ? 10 : -20;
 
         if (Score.ScoreInstance != null)
