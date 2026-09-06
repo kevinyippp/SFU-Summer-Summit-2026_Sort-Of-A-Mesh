@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Trash : DragObject2D
@@ -14,34 +13,35 @@ public class Trash : DragObject2D
     {
         base.Awake();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateColour();
+        updateSprite();
     }
 
     public void SetTrashType(TrashType newType)
     {
         typeOfTrash = newType;
-        UpdateColour();
+        updateSprite();
     }
 
-    private void UpdateColour()
+    private void updateSprite()
     {
-        switch (typeOfTrash)
+        string folder = typeOfTrash switch
         {
-            case TrashType.Organic:
-                spriteRenderer.color = Color.green;
-                break;
+            TrashType.Organic => "Trash/Organic",
+            TrashType.Recyclable => "Trash/Recyclable",
+            TrashType.Hazardous => "Trash/Hazardous",
+            TrashType.General => "Trash/General",
+            _ => ""
+        };
 
-            case TrashType.Recyclable:
-                spriteRenderer.color = Color.blue;
-                break;
+        Sprite[] sprites = Resources.LoadAll<Sprite>(folder);
 
-            case TrashType.Hazardous:
-                spriteRenderer.color = Color.red;
-                break;
-
-            case TrashType.General:
-                spriteRenderer.color = Color.gray;
-                break;
+        if (sprites.Length > 0)
+        {
+            spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        }
+        else
+        {
+            Debug.LogError($"No sprites found in Resources/{folder}");
         }
     }
 
