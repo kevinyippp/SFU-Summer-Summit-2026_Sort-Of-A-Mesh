@@ -1124,8 +1124,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   correctDropSound: {fileID: 8300000, guid: ce3ab97833eb2614fb20413e046b9c4f, type: 3}
   incorrectDropSound: {fileID: 8300000, guid: 274ecedeb58a28646a4aef066821f770, type: 3}
-  backgroundMusic: {fileID: 0}
-  scoreIncreaseSounds: []
+  backgroundMusic: {fileID: 8300000, guid: 618b50fc435b923479180abf2f173a40, type: 3}
+  scoreIncreaseSounds:
+  - {fileID: 8300000, guid: c30d54d5f8276c5479fd1ed770fd0601, type: 3}
+  - {fileID: 8300000, guid: dabc373fc363c1c42a0dfc2bbf63943f, type: 3}
+  - {fileID: 8300000, guid: 255d5a19734272847949bfa8b72f237b, type: 3}
+  - {fileID: 8300000, guid: c43f8e44e5cc77f41a77d55dac2197d5, type: 3}
 --- !u!4 &336265264
 Transform:
   m_ObjectHideFlags: 0

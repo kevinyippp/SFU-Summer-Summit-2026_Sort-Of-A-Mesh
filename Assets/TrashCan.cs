@@ -82,7 +82,7 @@ public class TrashCan : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             // Delay is to simulate the time it takes to hit the 'bottom' of the trashcan
-            AudioManager.Instance.PlaySound(trash.trashDropSound, 0.45f);
+            AudioManager.Instance.PlaySound(trash.trashDropSound, 0.45f, 0.3f);
 
             if (isCorrect)
             {
