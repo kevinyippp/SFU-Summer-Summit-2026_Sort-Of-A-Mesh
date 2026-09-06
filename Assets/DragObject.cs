@@ -19,6 +19,9 @@ public class DragObject2D : MonoBehaviour
 
     public void StartDragging()
     {
+        if (GameManager.IsGameOver)
+            return;
+
         offset = transform.position - GetMouseWorldPos();
         isDragging = true;
     }
@@ -32,6 +35,12 @@ public class DragObject2D : MonoBehaviour
     {
         if (isDragging)
         {
+            if (GameManager.IsGameOver)
+            {
+                StopDragging();
+                return;
+            }
+
             transform.position = GetMouseWorldPos() + offset;
 
             if (Mouse.current.leftButton.wasReleasedThisFrame)
