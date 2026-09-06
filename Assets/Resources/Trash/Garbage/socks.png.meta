@@ -5,18 +5,6 @@ TextureImporter:
   - first:
       213: 6749276748630484902
     second: socks_0
-  - first:
-      213: 4185747432494539381
-    second: socks_1
-  - first:
-      213: -3295395790866491794
-    second: socks_2
-  - first:
-      213: 7794440627355098164
-    second: socks_3
-  - first:
-      213: -704066865209860874
-    second: socks_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,10 +103,10 @@ TextureImporter:
       name: socks_0
       rect:
         serializedVersion: 2
-        x: 73
-        y: 608
-        width: 86
-        height: 400
+        x: 0
+        y: 0
+        width: 688
+        height: 555
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,94 +117,6 @@ TextureImporter:
       bones: []
       spriteID: 6a76ce4917f3aad50800000000000000
       internalID: 6749276748630484902
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: socks_1
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 812
-        width: 50
-        height: 189
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5722751ec13c61a30800000000000000
-      internalID: 4185747432494539381
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: socks_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 639
-        width: 107
-        height: 385
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e66d51becf66442d0800000000000000
-      internalID: -3295395790866491794
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: socks_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 920
-        height: 739
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 43c9f50347a6b2c60800000000000000
-      internalID: 7794440627355098164
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: socks_4
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 511
-        width: 107
-        height: 273
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6fc1b099ae6aa36f0800000000000000
-      internalID: -704066865209860874
       vertices: []
       indices: 
       edges: []
@@ -236,10 +136,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       socks_0: 6749276748630484902
-      socks_1: 4185747432494539381
-      socks_2: -3295395790866491794
-      socks_3: 7794440627355098164
-      socks_4: -704066865209860874
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
