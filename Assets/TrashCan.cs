@@ -2,26 +2,85 @@ using UnityEngine;
 
 public class TrashCan : MonoBehaviour
 {
-    [SerializeField] public TrashType typeOfTrash;
+    [SerializeField] private TrashType typeOfTrash;
 
     public TrashType Type => typeOfTrash;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name + " entered the trash can!");
+        Debug.Log(
+            other.gameObject.name +
+            " entered the trash can!"
+        );
     }
 
     public void HandleTrashDropped(Trash trash)
     {
-        int points = -2;
-        if (trash.Type == typeOfTrash) points = 1;
+        if (trash == null)
+        {
+            return;
+        }
 
-        Score.ScoreInstance.AddPoints(points);
+        bool isCorrect =
+            trash.Type == typeOfTrash;
 
-        string feedbackText = points > 0 ? $"+{points}" : points.ToString();
-        TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
+        int points = isCorrect ? 1 : -2;
 
-        TrashDropAnimation dropAnimation = trash.GetComponent<TrashDropAnimation>();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ProcessTrashResult(points);
+        }
+        else
+        {
+            Debug.LogError(
+                "No active GameManager was found in the scene."
+            );
+        }
+
+        if (TextSpawner.Instance != null)
+        {
+            string feedbackText =
+                points > 0
+                    ? "+" + points
+                    : points.ToString();
+
+            TextSpawner.Instance.Spawn(
+                feedbackText,
+                transform.position.x,
+                transform.position.y
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "TextSpawner was not found."
+            );
+        }
+
+        if (isCorrect)
+        {
+            if (TrashToScoreAnimation.Instance != null)
+            {
+                TrashToScoreAnimation.Instance.PlayEffect(trash);
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "TrashToScoreAnimation was not found."
+                );
+            }
+        }
+
+        if (!isCorrect)
+        {
+            WrongTrashBurst burst = GetComponent<WrongTrashBurst>();
+            if (burst == null)
+                burst = gameObject.AddComponent<WrongTrashBurst>();
+            burst.Play(transform.position);
+        }
+
+        TrashDropAnimation dropAnimation =
+            trash.GetComponent<TrashDropAnimation>();
 
         if (dropAnimation != null)
         {
@@ -29,7 +88,11 @@ public class TrashCan : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning(trash.gameObject.name + " does not have TrashDropAnimation.");
+            Debug.LogWarning(
+                trash.gameObject.name +
+                " does not have TrashDropAnimation."
+            );
+
             Destroy(trash.gameObject);
         }
     }

@@ -1464,7 +1464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5929465762295489541, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 226.0016
+      value: 238.8169
       objectReference: {fileID: 0}
     - target: {fileID: 5929465762295489541, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1500,7 +1500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5929465762295489541, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 12.815308
       objectReference: {fileID: 0}
     - target: {fileID: 5929465762295489541, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1516,6 +1516,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5929465762295489541, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758370860993367885, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
+      propertyPath: m_fontStyle
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758370860993367885, guid: 4b17c1b9cd8f4ff48a0b729bd228824b, type: 3}
+      propertyPath: m_enableVertexGradient
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

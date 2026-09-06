@@ -29,6 +29,31 @@ public class ComboDisplay : MonoBehaviour
 
     public int CurrentCombo => Mathf.Max(0, currentCombo);
 
+    public RectTransform ComboTarget
+    {
+        get
+        {
+            if (tmp != null)
+            {
+                return tmp.rectTransform;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    public RectTransform GetComboTarget()
+    {
+        if (tmp != null)
+        {
+            return tmp.rectTransform;
+        }
+
+        return null;
+    }
+
     private void Awake()
     {
 
@@ -181,7 +206,7 @@ public class ComboDisplay : MonoBehaviour
 
     private void Update()
     {
-        UpdateComboFromScore();
+        // GameManager updates the combo once per trash result.
 
         if (tmp == null || !tmp.gameObject.activeInHierarchy)
             return;
