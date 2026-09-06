@@ -2973,7 +2973,7 @@ MonoBehaviour:
   countdownTimer: {fileID: 343689254}
   gameOverPanel: {fileID: 65124868}
   finalScoreText: {fileID: 311189927}
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 181452360}
   timerShrinkFactor: 0.9
   minTimerDuration: 2
 --- !u!4 &2081709102
