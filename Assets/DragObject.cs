@@ -5,11 +5,13 @@ public class DragObject2D : MonoBehaviour
 {
     private Vector3 offset;
     private Camera cam;
+    private Rigidbody2D rb;
     protected bool isDragging = false;
 
     protected void Awake()
     {
         cam = Camera.main;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void OnMouseDown()
@@ -41,7 +43,12 @@ public class DragObject2D : MonoBehaviour
                 return;
             }
 
-            transform.position = GetMouseWorldPos() + offset;
+            Vector3 targetPosition = GetMouseWorldPos() + offset;
+
+            if (rb != null)
+                rb.MovePosition(targetPosition);
+            else
+                transform.position = targetPosition;
 
             if (Mouse.current.leftButton.wasReleasedThisFrame)
             {
