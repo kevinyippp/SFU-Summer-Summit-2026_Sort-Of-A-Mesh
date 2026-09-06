@@ -79,6 +79,17 @@ public class TrashCan : MonoBehaviour
             burst.Play(transform.position);
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(trash.trashDropSound, 0.45f);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "AudioManager was not found."
+            );
+        }
+
         TrashDropAnimation dropAnimation =
             trash.GetComponent<TrashDropAnimation>();
 
