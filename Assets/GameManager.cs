@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
+    [SerializeField] private GameObject restartButton;
+
 
     [Header("Timer Scaling")]
     [SerializeField] private float timerShrinkFactor = 0.9f;
@@ -67,6 +70,11 @@ public class GameManager : MonoBehaviour
         {
             finalScoreText.gameObject.SetActive(false);
         }
+        if (restartButton != null)
+        {
+            restartButton.SetActive(false);
+        }
+
     }
 
     private void OnDestroy()
@@ -161,5 +169,14 @@ public class GameManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
         }
+        if (restartButton != null)
+        {
+            restartButton.SetActive(true);
+        }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
