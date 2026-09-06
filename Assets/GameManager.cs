@@ -6,12 +6,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public static bool IsGameOver { get; private set; }
 
-<<<<<<< HEAD
-=======
+    [Header("Systems")]
+    [SerializeField] private Score scoreSystem;
+
+    [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
 
->>>>>>> origin/main
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,7 +22,24 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-<<<<<<< HEAD
+        IsGameOver = false;
+
+        if (scoreSystem == null)
+        {
+            scoreSystem = FindAnyObjectByType<Score>();
+        }
+
+        if (scoreSystem == null)
+        {
+            Debug.LogError(
+                "No Score component was found in the scene."
+            );
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
     }
 
     private void OnDestroy()
@@ -29,47 +47,77 @@ public class GameManager : MonoBehaviour
         if (Instance == this)
         {
             Instance = null;
-=======
-        IsGameOver = false;
+        }
+    }
 
-        if (gameOverPanel != null)
+    public void ProcessTrashResult(int points)
+    {
+        if (IsGameOver)
         {
-            gameOverPanel.SetActive(false);
->>>>>>> origin/main
+            return;
+        }
+
+        if (scoreSystem != null)
+        {
+            scoreSystem.AddPoints(points);
+        }
+        else
+        {
+            Debug.LogError(
+                "Cannot update the score because Score was not found."
+            );
+        }
+
+        if (ComboDisplay.Instance != null)
+        {
+            ComboDisplay comboDisplay = ComboDisplay.Instance;
+            int previousCombo = comboDisplay.CurrentCombo;
+
+            comboDisplay.RegisterResult(points);
+
+            int currentCombo = comboDisplay.CurrentCombo;
+
+            // Reward each newly reached multiple of ten.
+            if (points > 0 &&
+                currentCombo > previousCombo &&
+                currentCombo / 10 > previousCombo / 10 &&
+                scoreSystem != null)
+            {
+                scoreSystem.AddPoints(10);
+
+                if (TrashToScoreAnimation.Instance != null)
+                {
+                    TrashToScoreAnimation.Instance.PlayComboBonus(
+                        comboDisplay.ComboTarget
+                    );
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning(
+                "ComboDisplay was not found."
+            );
         }
     }
 
     public void EndGame(int finalScore)
     {
-<<<<<<< HEAD
-        if (Score.ScoreInstance == null)
+        if (IsGameOver)
         {
-            Debug.LogError("Score system was not found.");
             return;
         }
-
-        if (ComboDisplay.Instance == null)
-        {
-            Debug.LogError("ComboDisplay was not found.");
-            return;
-=======
-        if (IsGameOver)
-            return;
 
         IsGameOver = true;
 
         if (finalScoreText != null)
         {
-            finalScoreText.text = $"Final Score: {finalScore}";
+            finalScoreText.text = "Final Score: " + finalScore;
         }
 
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
->>>>>>> origin/main
         }
-
-        Score.ScoreInstance.AddPoints(points);
-        ComboDisplay.Instance.RegisterResult(points);
     }
 }
