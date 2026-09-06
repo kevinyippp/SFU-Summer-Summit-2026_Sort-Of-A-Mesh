@@ -14,11 +14,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
 
-    [Header("Timer Scaling")]
-    [SerializeField] private float timerShrinkFactor = 0.9f;
-    [SerializeField] private float minTimerDuration = 2f;
+    [Header("Combo Time Rewards")]
+    [SerializeField, Min(1)] private int timeRewardComboInterval = 5;
+    [SerializeField, Min(0f)] private float timeRewardSeconds = 0.25f;
+    [SerializeField, Min(0.1f)] private float maximumTimerDuration = 20f;
 
     private float currentTimerDuration;
+
+    [Header("Round Pressure")]
+    [SerializeField, Min(5f)] private float targetRoundSeconds = 30f;
+    [SerializeField, Min(0f)] private float maximumComboExtensionSeconds = 5f;
+    private float timeLimitDecayPerSecond;
+    private float remainingTimeRewardBudget;
+
+    [SerializeField] private ComboTimeRewardEffect timeRewardEffect;
 
     private void Awake()
     {
@@ -55,6 +64,10 @@ public class GameManager : MonoBehaviour
         if (countdownTimer != null)
         {
             currentTimerDuration = countdownTimer.StartingTime;
+            float target = Mathf.Max(5f, targetRoundSeconds);
+            float extension = Mathf.Clamp(maximumComboExtensionSeconds, 0f, target * 0.5f);
+            timeLimitDecayPerSecond = Mathf.Max(0.1f, currentTimerDuration) / (target - extension);
+            remainingTimeRewardBudget = timeLimitDecayPerSecond * extension;
             countdownTimer.TimedUp += HandleTimedUp;
         }
 
@@ -67,6 +80,17 @@ public class GameManager : MonoBehaviour
         {
             finalScoreText.gameObject.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        if (Instance != this || IsGameOver || countdownTimer == null ||
+            !countdownTimer.IsRunning || !countdownTimer.isActiveAndEnabled)
+            return;
+
+        currentTimerDuration = Mathf.Max(0f,
+            currentTimerDuration - timeLimitDecayPerSecond * Time.deltaTime);
+        countdownTimer.SetTimeLimit(currentTimerDuration);
     }
 
     private void OnDestroy()
@@ -103,6 +127,23 @@ public class GameManager : MonoBehaviour
 
             int currentCombo = comboDisplay.CurrentCombo;
 
+            int interval = Mathf.Max(1, timeRewardComboInterval);
+            int milestones = currentCombo / interval - previousCombo / interval;
+            if (points > 0 && milestones > 0 && countdownTimer != null)
+            {
+                float limit = Mathf.Max(currentTimerDuration, maximumTimerDuration);
+                // A round-wide budget prevents combo rewards from cancelling the pressure.
+                float reward = Mathf.Min(milestones * Mathf.Max(0f, timeRewardSeconds),
+                    remainingTimeRewardBudget, limit - currentTimerDuration);
+                currentTimerDuration += reward;
+                remainingTimeRewardBudget -= reward;
+
+                if (reward > 0f && timeRewardEffect != null)
+                {
+                    timeRewardEffect.Play(reward);
+                }
+            }
+
             // Reward each newly reached multiple of ten.
             if (points > 0 &&
                 currentCombo > previousCombo &&
@@ -128,11 +169,6 @@ public class GameManager : MonoBehaviour
 
         if (countdownTimer != null && points > 0)
         {
-            currentTimerDuration = Mathf.Max(
-                minTimerDuration,
-                currentTimerDuration * timerShrinkFactor
-            );
-
             countdownTimer.ResetTimer(currentTimerDuration);
         }
     }
