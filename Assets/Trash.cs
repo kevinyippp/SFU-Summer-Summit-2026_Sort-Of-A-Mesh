@@ -8,6 +8,7 @@ public class Trash : DragObject2D
 
     private TrashCan currentTrashCan;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] public AudioClip trashDropSound;
 
     private void Awake()
     {
@@ -43,6 +44,38 @@ public class Trash : DragObject2D
         }
     }
 
+    void LoadDropSound(string itemName)
+    {   
+        int underscoreIndex = itemName.LastIndexOf('_');
+        if (underscoreIndex >= 0)
+        {
+            string suffix = itemName.Substring(underscoreIndex + 1);
+
+            if (int.TryParse(suffix, out _))
+            {
+                itemName = itemName.Substring(0, underscoreIndex);
+            }
+        }
+
+        string folder = typeOfTrash switch
+        {
+            TrashType.Garbage => "Sounds/Trash/Garbage",
+            TrashType.Organic => "Sounds/Trash/Organic",
+            TrashType.Recyclable => "Sounds/Trash/Recyclable",
+            TrashType.Paper => "Sounds/Trash/Paper",
+            _ => ""
+        };
+
+        trashDropSound = Resources.Load<AudioClip>($"{folder}/{itemName}");
+
+        if (trashDropSound == null)
+        {
+            Debug.LogWarning(
+                $"No drop sound found for {itemName} at Resources/{folder}/{itemName}"
+            );
+        }
+    }
+
 
     private void updateSprite()
     {
@@ -60,6 +93,8 @@ public class Trash : DragObject2D
         if (sprites.Length > 0)
         {
             spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+
+            LoadDropSound(spriteRenderer.sprite.name);
 
             BoxCollider2D col = GetComponent<BoxCollider2D>();
 
@@ -82,7 +117,6 @@ public class Trash : DragObject2D
     {
         base.StopDragging();
 
-        // Debug.Log(currentTrashCan);
         if (currentTrashCan != null)
         {
             currentTrashCan.HandleTrashDropped(this);

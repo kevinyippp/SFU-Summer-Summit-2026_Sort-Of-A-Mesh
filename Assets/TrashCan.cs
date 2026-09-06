@@ -23,6 +23,8 @@ public class TrashCan : MonoBehaviour
 
         TrashDropAnimation dropAnimation = trash.GetComponent<TrashDropAnimation>();
 
+        AudioManager.Instance.PlaySound(trash.trashDropSound, 0.45f);
+
         if (dropAnimation != null)
         {
             dropAnimation.Play(transform.position);

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 56fd8536b196b2856b1d1860305827d6
+guid: 3a01ad2523312050bb2f16e1f1010648
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2453274557826157294
-    second: sandwitch_0
+      213: -6405189625795485184
+    second: sandwich_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sandwitch_0
+      name: sandwich_0
       rect:
         serializedVersion: 2
         x: 71
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eea4bbb5638cb0220800000000000000
-      internalID: 2453274557826157294
+      spriteID: 0026173b8f13c17a0800000000000000
+      internalID: -6405189625795485184
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sandwitch_0: 2453274557826157294
+      sandwich_0: -6405189625795485184
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
