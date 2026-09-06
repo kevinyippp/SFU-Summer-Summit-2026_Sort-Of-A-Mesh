@@ -9,6 +9,8 @@ public class Score : MonoBehaviour
 
     private int score = 0;
 
+    public int CurrentScore => score;
+
     private void Awake()
     {
         ScoreInstance = this;

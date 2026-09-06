@@ -68,7 +68,11 @@ public class CountdownTimer : MonoBehaviour
 
         Debug.Log("Time is up!");
 
-        // TODO: show the Game Over screen here.
+        if (GameManager.Instance != null)
+        {
+            int finalScore = Score.ScoreInstance != null ? Score.ScoreInstance.CurrentScore : 0;
+            GameManager.Instance.EndGame(finalScore);
+        }
     }
 
     public void ResetTimer()

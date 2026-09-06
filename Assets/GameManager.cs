@@ -1,13 +1,13 @@
+using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(Score))]
-[RequireComponent(typeof(ComboSystem))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public static bool IsGameOver { get; private set; }
 
-    private Score scoreSystem;
-    private ComboSystem comboSystem;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TMP_Text finalScoreText;
 
     private void Awake()
     {
@@ -18,21 +18,29 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        scoreSystem = GetComponent<Score>();
-        comboSystem = GetComponent<ComboSystem>();
+        IsGameOver = false;
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
     }
 
-    public void ProcessTrashResult(int points)
+    public void EndGame(int finalScore)
     {
-        scoreSystem.AddPoints(points);
+        if (IsGameOver)
+            return;
 
-        if (points > 0)
+        IsGameOver = true;
+
+        if (finalScoreText != null)
         {
-            comboSystem.AddCombo();
+            finalScoreText.text = $"Final Score: {finalScore}";
         }
-        else
+
+        if (gameOverPanel != null)
         {
-            comboSystem.BreakCombo();
+            gameOverPanel.SetActive(true);
         }
     }
 }
