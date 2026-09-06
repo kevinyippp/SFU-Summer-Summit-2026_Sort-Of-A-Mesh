@@ -24,11 +24,11 @@ public class TrashCan : MonoBehaviour
         bool isCorrect =
             trash.Type == typeOfTrash;
 
-        int points = isCorrect ? 1 : -2;
+        int points = isCorrect ? 10 : -20;
 
         if (Score.ScoreInstance != null)
         {
-            Score.ScoreInstance.AddPoints(points);
+            points = Score.ScoreInstance.AddPoints(points);
         }
         else
         {
@@ -81,7 +81,16 @@ public class TrashCan : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
+            // Delay is to simulate the time it takes to hit the 'bottom' of the trashcan
             AudioManager.Instance.PlaySound(trash.trashDropSound, 0.45f);
+
+            if (isCorrect)
+            {
+                AudioManager.Instance.PlaySound(AudioManager.Instance.correctDropSound);
+            } else
+            {
+                AudioManager.Instance.PlaySound(AudioManager.Instance.incorrectDropSound);
+            }
         }
         else
         {
