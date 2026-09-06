@@ -513,6 +513,9 @@ public class TrashToScoreAnimation : MonoBehaviour
         Vector3 enlargedScale =
             originalScoreScale * punchScale;
 
+        // Play only once at start of animation
+        AudioManager.Instance.PlayScoreIncrease();
+
         while (elapsedTime < halfDuration)
         {
             elapsedTime += Time.unscaledDeltaTime;
