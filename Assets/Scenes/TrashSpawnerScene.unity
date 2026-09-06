@@ -1069,9 +1069,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaaca4314ef9df2428521ef427800a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CountdownTimer
-  timerText: {fileID: 1428876200}
+  timerText: {fileID: 643420640}
   startingTime: 10
   countdownBarFill: {fileID: 2116548123}
+--- !u!114 &343689255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343689252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CDWarningAnimation
+  timer: {fileID: 343689254}
+  timerBar: {fileID: 814802318}
+  timerText: {fileID: 1428876200}
+  warningTime: 10
+  minimumShake: 1
+  maximumShake: 10
+  breakSpeed: 200
+  hideDistance: 500
 --- !u!1 &511953148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,6 +1638,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &643420638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2336613481865419713, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+  m_PrefabInstance: {fileID: 1521994320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &643420640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4024595056662295860, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+  m_PrefabInstance: {fileID: 1521994320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643420638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &643420642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643420638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaca4314ef9df2428521ef427800a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CountdownTimer
+  timerText: {fileID: 643420640}
+  startingTime: 10
+  countdownBarFill: {fileID: 2116548123}
+--- !u!114 &643420643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643420638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CDWarningAnimation
+  timer: {fileID: 643420642}
+  timerBar: {fileID: 814802318}
+  timerText: {fileID: 1428876200}
+  warningTime: 10
+  minimumShake: 1
+  maximumShake: 10
+  breakSpeed: 200
+  hideDistance: 500
 --- !u!1001 &710806236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1690,6 +1761,36 @@ PrefabInstance:
       addedObject: {fileID: 159864443}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdda1fdc11f9a5240804825ff580ea62, type: 3}
+--- !u!1 &814802317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2673755905303281413, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+  m_PrefabInstance: {fileID: 1521994320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &814802318 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 132650723360137146, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+  m_PrefabInstance: {fileID: 1521994320}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &814802321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814802317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CDWarningAnimation
+  timer: {fileID: 343689254}
+  timerBar: {fileID: 814802318}
+  timerText: {fileID: 643420640}
+  warningTime: 10
+  minimumShake: 1
+  maximumShake: 10
+  breakSpeed: 200
+  hideDistance: 500
 --- !u!1 &832133387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,6 +1980,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2075339094}
     m_Modifications:
+    - target: {fileID: 4024595056662295860, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6246879977545464026, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -122
+      objectReference: {fileID: 0}
+    - target: {fileID: 6246879977545464026, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 129
+      objectReference: {fileID: 0}
     - target: {fileID: 7056185707325658463, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1970,6 +2083,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8886925496375536731, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
       insertIndex: -1
       addedObject: {fileID: 343689254}
+    - targetCorrespondingSourceObject: {fileID: 8886925496375536731, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 343689255}
+    - targetCorrespondingSourceObject: {fileID: 2336613481865419713, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 643420642}
+    - targetCorrespondingSourceObject: {fileID: 2336613481865419713, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 643420643}
+    - targetCorrespondingSourceObject: {fileID: 2673755905303281413, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 814802321}
   m_SourcePrefab: {fileID: 100100000, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
 --- !u!1 &1573049797
 GameObject:
