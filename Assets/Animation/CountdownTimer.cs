@@ -30,6 +30,7 @@ public class CountdownTimer : MonoBehaviour
 
     public float StartingTime => startingTime;
     public bool IsRunning => isRunning;
+    public TMP_Text TimerText => timerText;
 
     // Change the capacity without refilling the countdown or unpausing it.
     public void SetTimeLimit(float seconds)
@@ -120,12 +121,12 @@ public class CountdownTimer : MonoBehaviour
 
     private void UpdateTimerText()
     {
-        int totalSeconds = Mathf.CeilToInt(RemainingTime);
+        int totalHundredths = Mathf.CeilToInt(Mathf.Max(0f, RemainingTime) * 100f);
 
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+        int seconds = totalHundredths / 100;
+        int hundredths = totalHundredths % 100;
 
-        if (timerText != null) timerText.text = $"{minutes:00}:{seconds:00}";
+        if (timerText != null) timerText.text = $"{seconds:00}:{hundredths:00}";
 
         if (countdownBarFill != null)
         {
