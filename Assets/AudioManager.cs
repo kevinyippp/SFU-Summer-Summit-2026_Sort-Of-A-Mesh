@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip incorrectDropSound;
     [SerializeField] public AudioClip backgroundMusic;
 
+    [SerializeField] private AudioClip[] scoreIncreaseSounds;
+
     private AudioSource audioSource;
 
     private void Awake()
@@ -40,6 +42,21 @@ public class AudioManager : MonoBehaviour
             Debug.LogError("Background music not found");
         }
 
+    }
+
+    public void PlayScoreIncrease()
+    {
+        int maxIndex = scoreIncreaseSounds.Length - 1;
+
+        if (maxIndex < 0)
+        {
+            Debug.LogError("No score increase sounds found");
+            return;
+        }
+
+        int soundIndex = Random.Range(0, maxIndex);
+
+        audioSource.PlayOneShot(scoreIncreaseSounds[soundIndex]);
     }
 
     public void PlaySound(AudioClip clip, float delay = 0f)
