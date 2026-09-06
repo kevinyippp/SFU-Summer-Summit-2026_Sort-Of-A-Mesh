@@ -16,6 +16,9 @@ public class LargeTrashBin : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (GameManager.IsGameOver)
+            return;
+
         SpawnTrash();
     }
 
