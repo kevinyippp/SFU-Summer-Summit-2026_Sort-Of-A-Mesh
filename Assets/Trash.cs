@@ -15,12 +15,6 @@ public class Trash : DragObject2D
         spriteRenderer = GetComponent<SpriteRenderer>();
         updateSprite();
         
-        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
-        if (collider != null)
-        {
-            collider.pathCount = 1;
-            collider.SetPath(0, spriteRenderer.sprite.vertices);
-        }
     }
 
     public void SetTrashType(TrashType newType)
@@ -28,17 +22,11 @@ public class Trash : DragObject2D
         typeOfTrash = newType;
         updateSprite();
 
-        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
-        if (collider != null)
-        {
-            collider.pathCount = 1;
-            collider.SetPath(0, spriteRenderer.sprite.vertices);
-        }
     }
 
     private void CapObjectSize()
     {
-        float maxSize = 2f;
+        float maxSize = 4f;
 
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
 
@@ -94,6 +82,7 @@ public class Trash : DragObject2D
     {
         base.StopDragging();
 
+        // Debug.Log(currentTrashCan);
         if (currentTrashCan != null)
         {
             currentTrashCan.HandleTrashDropped(this);
@@ -111,7 +100,9 @@ public class Trash : DragObject2D
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<TrashCan>() != null)
+        TrashCan trashCan = other.GetComponent<TrashCan>();
+
+        if (trashCan != null && trashCan == currentTrashCan)
         {
             currentTrashCan = null;
         }
