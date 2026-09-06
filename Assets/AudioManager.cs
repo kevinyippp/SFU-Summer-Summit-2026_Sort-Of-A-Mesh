@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class AudioManager : MonoBehaviour
@@ -31,21 +32,37 @@ public class AudioManager : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        if (backgroundMusic != null)
-        {
-            audioSource.clip = backgroundMusic;
-            // This doesn't affect the other sounds, since they use PlayOneShot (which ignores loop)
-            audioSource.loop = true;
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-        } else
+        PlayBackgroundMusic();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayBackgroundMusic();
+    }
+
+    private void PlayBackgroundMusic()
+    {
+        if (backgroundMusic == null)
         {
             Debug.LogError("Background music not found");
+            return;
         }
 
+        audioSource.Stop();
+        audioSource.clip = backgroundMusic;
+        // This doesn't affect the other sounds, since they use PlayOneShot (which ignores loop)
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     public void PlayScoreIncrease()
