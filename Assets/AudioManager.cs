@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
 
         int soundIndex = Random.Range(0, maxIndex);
 
-        audioSource.PlayOneShot(scoreIncreaseSounds[soundIndex]);
+        audioSource.PlayOneShot(scoreIncreaseSounds[soundIndex], 2.0f);
     }
 
     public void PlaySound(AudioClip clip, float delay = 0f)
