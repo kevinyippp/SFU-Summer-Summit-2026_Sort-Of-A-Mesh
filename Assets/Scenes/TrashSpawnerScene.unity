@@ -1122,9 +1122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c878b979db7023de4a3b5b2e3eca9cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  genericDropSound: {fileID: 8300000, guid: 8421af0d8d5720849ac08f02d908c9d3, type: 3}
   correctDropSound: {fileID: 8300000, guid: ce3ab97833eb2614fb20413e046b9c4f, type: 3}
   incorrectDropSound: {fileID: 8300000, guid: 274ecedeb58a28646a4aef066821f770, type: 3}
+  backgroundMusic: {fileID: 0}
+  scoreIncreaseSounds: []
 --- !u!4 &336265264
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1166,8 @@ MonoBehaviour:
   timerText: {fileID: 643420640}
   startingTime: 10
   countdownBarFill: {fileID: 2116548123}
+  timeLimitBar: {fileID: 0}
+  barResizeDuration: 0.25
 --- !u!114 &343689255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,7 +1779,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643420638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaaca4314ef9df2428521ef427800a3a, type: 3}
   m_Name: 
@@ -1784,6 +1787,8 @@ MonoBehaviour:
   timerText: {fileID: 643420640}
   startingTime: 10
   countdownBarFill: {fileID: 2116548123}
+  timeLimitBar: {fileID: 0}
+  barResizeDuration: 0.25
 --- !u!114 &643420643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,7 +1796,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643420638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
   m_Name: 
@@ -1893,10 +1898,10 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814802317}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbc3fd2c6f6becb4cb6027afc0411b4c, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CDWarningAnimation
   timer: {fileID: 343689254}
   timerBar: {fileID: 814802318}
@@ -1997,6 +2002,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1092946256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1092946257}
+  - component: {fileID: 1092946258}
+  m_Layer: 5
+  m_Name: TimeRewardEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1092946257
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092946256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2075339094}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1092946258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092946256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2d762cc7e0f43e4ca0be0f90b3631d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ComboTimeRewardEffect
+  canvas: {fileID: 2075339093}
+  comboText: {fileID: 159864443}
+  timerBar: {fileID: 814802318}
+  font: {fileID: 11400000, guid: d9c4e8975c14e00439b7d78e711204d1, type: 2}
+  flightDuration: 0.65
+  arcHeight: 120
+  fontSize: 42
+  gold: {r: 1, g: 0.78, b: 0.15, a: 1}
+  trailLifetime: 0.2
+  trailSize: 18
+  trailCount: 24
+  punchDuration: 0.22
+  punchScale: 1.08
 --- !u!1 &1358984703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,11 +2235,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056185707325658463, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 886
+      value: 837
       objectReference: {fileID: 0}
     - target: {fileID: 7056185707325658463, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 514
+      value: 535
       objectReference: {fileID: 0}
     - target: {fileID: 7056185707325658463, guid: b8ba7d151312ffd419189b3fc4ea8693, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2708,6 +2774,7 @@ RectTransform:
   - {fileID: 343689253}
   - {fileID: 65124869}
   - {fileID: 311189926}
+  - {fileID: 1092946257}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2759,8 +2826,12 @@ MonoBehaviour:
   countdownTimer: {fileID: 343689254}
   gameOverPanel: {fileID: 65124868}
   finalScoreText: {fileID: 311189927}
-  timerShrinkFactor: 0.9
-  minTimerDuration: 2
+  timeRewardComboInterval: 5
+  timeRewardSeconds: 0.5
+  maximumTimerDuration: 20
+  targetRoundSeconds: 30
+  maximumComboExtensionSeconds: 5
+  timeRewardEffect: {fileID: 1092946258}
 --- !u!4 &2081709102
 Transform:
   m_ObjectHideFlags: 0
