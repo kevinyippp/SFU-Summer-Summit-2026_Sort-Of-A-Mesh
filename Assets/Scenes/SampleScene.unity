@@ -834,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CountdownTimer
   timerText: {fileID: 1048528316}
-  startingTime: 60
+  startingTime: 10
   countdownBarFill: {fileID: 1215316674}
 --- !u!4 &729496602
 Transform:

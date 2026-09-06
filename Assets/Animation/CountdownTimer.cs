@@ -8,7 +8,7 @@ public class CountdownTimer : MonoBehaviour
     public event Action TimedUp;
 
     [SerializeField] private TMP_Text timerText;
-    [SerializeField] private float startingTime = 60f;
+    [SerializeField] private float startingTime = 10f;
 
     [SerializeField] private Image countdownBarFill;
 

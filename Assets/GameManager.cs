@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text finalScoreText;
 
     [Header("Timer Scaling")]
-    [SerializeField] private float timerShrinkFactor = 0.95f;
-    [SerializeField] private float minTimerDuration = 15f;
+    [SerializeField] private float timerShrinkFactor = 0.9f;
+    [SerializeField] private float minTimerDuration = 2f;
 
     private float currentTimerDuration;
 
@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+
+        if (finalScoreText != null)
+        {
+            finalScoreText.gameObject.SetActive(false);
         }
     }
 
@@ -121,7 +126,7 @@ public class GameManager : MonoBehaviour
             );
         }
 
-        if (countdownTimer != null)
+        if (countdownTimer != null && points > 0)
         {
             currentTimerDuration = Mathf.Max(
                 minTimerDuration,
@@ -149,6 +154,7 @@ public class GameManager : MonoBehaviour
         if (finalScoreText != null)
         {
             finalScoreText.text = "Final Score: " + finalScore;
+            finalScoreText.gameObject.SetActive(true);
         }
 
         if (gameOverPanel != null)
