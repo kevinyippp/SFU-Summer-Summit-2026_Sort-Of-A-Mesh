@@ -38,12 +38,16 @@ public class ShiftResultsPanel : MonoBehaviour
             nextButton.interactable = !string.IsNullOrWhiteSpace(nextSceneName) &&
                 Application.CanStreamedLevelBeLoaded(nextSceneName);
         StartCoroutine(ShowCounts());
+
     }
 
     private IEnumerator ShowCounts()
     {
         // Wait until the game-over state and final score are ready.
         yield return null;
+
+        AudioManager.Instance.PlaySound(AudioManager.Instance.gameOverSound, 0f, 0.3f);
+
         GameManager manager = GameManager.Instance;
         if (manager == null)
         {

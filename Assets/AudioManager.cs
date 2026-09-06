@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip correctDropSound;
     [SerializeField] public AudioClip incorrectDropSound;
     [SerializeField] public AudioClip backgroundMusic;
+    [SerializeField] public AudioClip gameOverSound;
 
     [SerializeField] private AudioClip[] scoreIncreaseSounds;
 
