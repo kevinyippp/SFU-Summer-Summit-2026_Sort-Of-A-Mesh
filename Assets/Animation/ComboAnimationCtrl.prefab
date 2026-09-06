@@ -41,9 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1414308346875484567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c809f96889ed6e41957768429ec3225, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TMPtest1
+  m_Script: {fileID: 11500000, guid: 7f953b49a07d3cd43bd8e39ee6723d96, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ComboDisplay
   tmp: {fileID: 0}
   animationSpeed: 3
   waveSpacing: 0.45

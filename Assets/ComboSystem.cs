@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ComboSystem : MonoBehaviour
 {
-    [SerializeField] private AnimationTest comboDisplay;
+    [SerializeField] private ComboDisplay comboDisplay;
 
     public int CurrentCombo { get; private set; }
 
@@ -10,7 +10,7 @@ public class ComboSystem : MonoBehaviour
     {
         if (comboDisplay == null)
         {
-            comboDisplay = FindAnyObjectByType<AnimationTest>(
+            comboDisplay = FindAnyObjectByType<ComboDisplay>(
                 FindObjectsInactive.Include
             );
         }
@@ -43,7 +43,7 @@ public class ComboSystem : MonoBehaviour
     {
         if (comboDisplay == null)
         {
-            Debug.LogError("ComboSystem could not find an AnimationTest combo display.");
+            Debug.LogError("ComboSystem could not find an ComboDisplay combo display.");
             return;
         }
 

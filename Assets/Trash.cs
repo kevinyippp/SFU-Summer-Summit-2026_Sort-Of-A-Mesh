@@ -8,10 +8,46 @@ public class Trash : DragObject2D
     public TrashType Type => typeOfTrash;
 
     private TrashCan currentTrashCan;
+    private SpriteRenderer spriteRenderer;
 
-    void OnMouseUp()
+    private void Awake()
     {
-        isDragging = false;
+        base.Awake();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateColour();
+    }
+
+    public void SetTrashType(TrashType newType)
+    {
+        typeOfTrash = newType;
+        UpdateColour();
+    }
+
+    private void UpdateColour()
+    {
+        switch (typeOfTrash)
+        {
+            case TrashType.Organic:
+                spriteRenderer.color = Color.green;
+                break;
+
+            case TrashType.Recyclable:
+                spriteRenderer.color = Color.blue;
+                break;
+
+            case TrashType.Hazardous:
+                spriteRenderer.color = Color.red;
+                break;
+
+            case TrashType.General:
+                spriteRenderer.color = Color.gray;
+                break;
+        }
+    }
+
+    protected override void StopDragging()
+    {
+        base.StopDragging();
 
         if (currentTrashCan != null)
         {

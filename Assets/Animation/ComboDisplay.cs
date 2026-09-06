@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-public class AnimationTest : MonoBehaviour
+public class ComboDisplay : MonoBehaviour
 {
-    public static AnimationTest Instance { get; private set; }
+    public static ComboDisplay Instance { get; private set; }
 
     [SerializeField] private TMP_Text tmp;
 
@@ -38,7 +38,7 @@ public class AnimationTest : MonoBehaviour
 
         if (Instance != null && Instance != this)
         {
-            Debug.LogError("More than one AnimationTest combo system exists in the scene.");
+            Debug.LogError("More than one ComboDisplay combo system exists in the scene.");
             enabled = false;
             return;
         }

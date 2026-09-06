@@ -21,9 +21,7 @@ public class TrashCan : MonoBehaviour
         string feedbackText = points > 0 ? $"+{points}" : points.ToString();
         TextSpawner.Instance.Spawn(feedbackText, transform.position.x, transform.position.y);
 
-        //test 1
-        TrashDropAnimation dropAnimation =
-        trash.GetComponent<TrashDropAnimation>();
+        TrashDropAnimation dropAnimation = trash.GetComponent<TrashDropAnimation>();
 
         if (dropAnimation != null)
         {
@@ -31,10 +29,7 @@ public class TrashCan : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning(
-                trash.gameObject.name + " does not have TrashDropAnimation."
-            );
-
+            Debug.LogWarning(trash.gameObject.name + " does not have TrashDropAnimation.");
             Destroy(trash.gameObject);
         }
     }
