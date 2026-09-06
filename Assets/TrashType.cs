@@ -1,1 +1,1 @@
-public enum TrashType {Organic, Recyclable, Hazardous, General}
+public enum TrashType {Garbage, Organic, Recyclable, Paper}
