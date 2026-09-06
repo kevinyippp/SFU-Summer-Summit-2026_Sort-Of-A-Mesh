@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8b47cc13af91f47c0a5345f0c1dcfc16
+guid: 0db0170f2510951dc85ba56ddc4539fb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1045181238759104467
-    second: food_0
+      213: -7437878994696180414
+    second: Landfill_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: food_0
+      name: Landfill_0
       rect:
         serializedVersion: 2
-        x: 22
+        x: 0
         y: 0
-        width: 225
-        height: 252
+        width: 376
+        height: 842
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d206cd17335ce71f0800000000000000
-      internalID: -1045181238759104467
+      spriteID: 24d6bce367857c890800000000000000
+      internalID: -7437878994696180414
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      food_0: -1045181238759104467
+      Landfill_0: -7437878994696180414
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

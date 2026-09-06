@@ -1,20 +1,24 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour
 {
+    public event Action TimedUp;
+
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private float startingTime = 60f;
 
     [SerializeField] private Image countdownBarFill;
 
-    private float remainingTime;
     private bool isRunning;
-    private bool hasFinished;
 
-    public float RemainingTime => remainingTime;
-    public bool HasFinished => hasFinished;
+    public float RemainingTime { get; private set; }
+
+    public bool HasFinished { get; private set; }
+
+    public float StartingTime => startingTime;
 
     private void Start()
     {
@@ -27,13 +31,13 @@ public class CountdownTimer : MonoBehaviour
         {
             return;
         }
-            
 
-        remainingTime -= Time.deltaTime;
 
-        if (remainingTime <= 0f)
+        RemainingTime -= Time.deltaTime;
+
+        if (RemainingTime <= 0f)
         {
-            remainingTime = 0f;
+            RemainingTime = 0f;
             isRunning = false;
 
             UpdateTimerText();
@@ -46,7 +50,7 @@ public class CountdownTimer : MonoBehaviour
 
     private void UpdateTimerText()
     {
-        int totalSeconds = Mathf.CeilToInt(remainingTime);
+        int totalSeconds = Mathf.CeilToInt(RemainingTime);
 
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
@@ -55,33 +59,35 @@ public class CountdownTimer : MonoBehaviour
 
         if (countdownBarFill != null)
         {
-            countdownBarFill.fillAmount = Mathf.Clamp01(remainingTime / startingTime);
+            countdownBarFill.fillAmount = Mathf.Clamp01(RemainingTime / startingTime);
         }
     }
 
     private void FinishTimer()
     {
-        if (hasFinished)
+        if (HasFinished)
             return;
 
-        hasFinished = true;
+        HasFinished = true;
 
         Debug.Log("Time is up!");
 
-        if (GameManager.Instance != null)
-        {
-            int finalScore = Score.ScoreInstance != null ? Score.ScoreInstance.CurrentScore : 0;
-            GameManager.Instance.EndGame(finalScore);
-        }
+        TimedUp?.Invoke();
     }
 
     public void ResetTimer()
     {
-        remainingTime = startingTime;
+        RemainingTime = startingTime;
         isRunning = true;
-        hasFinished = false;
+        HasFinished = false;
 
         UpdateTimerText();
+    }
+
+    public void ResetTimer(float newStartingTime)
+    {
+        startingTime = newStartingTime;
+        ResetTimer();
     }
 
     public void PauseTimer()
@@ -91,7 +97,7 @@ public class CountdownTimer : MonoBehaviour
 
     public void ResumeTimer()
     {
-        if (remainingTime > 0f)
+        if (RemainingTime > 0f)
         {
             isRunning = true;
         }

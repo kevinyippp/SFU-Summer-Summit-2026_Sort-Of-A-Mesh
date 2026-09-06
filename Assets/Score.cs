@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using TMPro;
 
 public class Score : MonoBehaviour
 {
     public static Score ScoreInstance;
+
+    public event Action<int> Scored;
 
     [SerializeField] private TMP_Text scoreText;
 
@@ -18,6 +21,13 @@ public class Score : MonoBehaviour
     }
 
     public void AddPoints(int points)
+    {
+        score += points;
+        UpdateScoreText();
+        Scored?.Invoke(points);
+    }
+
+    public void AddBonusPoints(int points)
     {
         score += points;
         UpdateScoreText();

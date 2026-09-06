@@ -8,10 +8,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Systems")]
     [SerializeField] private Score scoreSystem;
+    [SerializeField] private CountdownTimer countdownTimer;
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
+
+    [Header("Timer Scaling")]
+    [SerializeField] private float timerShrinkFactor = 0.95f;
+    [SerializeField] private float minTimerDuration = 15f;
+
+    private float currentTimerDuration;
 
     private void Awake()
     {
@@ -35,6 +42,21 @@ public class GameManager : MonoBehaviour
                 "No Score component was found in the scene."
             );
         }
+        else
+        {
+            scoreSystem.Scored += HandleScored;
+        }
+
+        if (countdownTimer == null)
+        {
+            countdownTimer = FindAnyObjectByType<CountdownTimer>();
+        }
+
+        if (countdownTimer != null)
+        {
+            currentTimerDuration = countdownTimer.StartingTime;
+            countdownTimer.TimedUp += HandleTimedUp;
+        }
 
         if (gameOverPanel != null)
         {
@@ -48,24 +70,23 @@ public class GameManager : MonoBehaviour
         {
             Instance = null;
         }
+
+        if (scoreSystem != null)
+        {
+            scoreSystem.Scored -= HandleScored;
+        }
+
+        if (countdownTimer != null)
+        {
+            countdownTimer.TimedUp -= HandleTimedUp;
+        }
     }
 
-    public void ProcessTrashResult(int points)
+    private void HandleScored(int points)
     {
         if (IsGameOver)
         {
             return;
-        }
-
-        if (scoreSystem != null)
-        {
-            scoreSystem.AddPoints(points);
-        }
-        else
-        {
-            Debug.LogError(
-                "Cannot update the score because Score was not found."
-            );
         }
 
         if (ComboDisplay.Instance != null)
@@ -83,7 +104,7 @@ public class GameManager : MonoBehaviour
                 currentCombo / 10 > previousCombo / 10 &&
                 scoreSystem != null)
             {
-                scoreSystem.AddPoints(10);
+                scoreSystem.AddBonusPoints(10);
 
                 if (TrashToScoreAnimation.Instance != null)
                 {
@@ -99,6 +120,21 @@ public class GameManager : MonoBehaviour
                 "ComboDisplay was not found."
             );
         }
+
+        if (countdownTimer != null)
+        {
+            currentTimerDuration = Mathf.Max(
+                minTimerDuration,
+                currentTimerDuration * timerShrinkFactor
+            );
+
+            countdownTimer.ResetTimer(currentTimerDuration);
+        }
+    }
+
+    private void HandleTimedUp()
+    {
+        EndGame(scoreSystem != null ? scoreSystem.CurrentScore : 0);
     }
 
     public void EndGame(int finalScore)
