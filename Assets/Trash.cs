@@ -14,13 +14,47 @@ public class Trash : DragObject2D
         base.Awake();
         spriteRenderer = GetComponent<SpriteRenderer>();
         updateSprite();
+        
+        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
+        if (collider != null)
+        {
+            collider.pathCount = 1;
+            collider.SetPath(0, spriteRenderer.sprite.vertices);
+        }
     }
 
     public void SetTrashType(TrashType newType)
     {
         typeOfTrash = newType;
         updateSprite();
+
+        PolygonCollider2D collider = GetComponent<PolygonCollider2D>();
+        if (collider != null)
+        {
+            collider.pathCount = 1;
+            collider.SetPath(0, spriteRenderer.sprite.vertices);
+        }
     }
+
+    private void CapObjectSize()
+    {
+        float maxSize = 2f;
+
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+
+        float largestDimension = Mathf.Max(spriteSize.x, spriteSize.y);
+
+        if (largestDimension > maxSize)
+        {
+            float scale = maxSize / largestDimension;
+            transform.localScale = Vector3.one * scale;
+        }
+        else
+        {
+            transform.localScale = Vector3.one;
+        }
+    }
+
 
     private void updateSprite()
     {
@@ -38,6 +72,17 @@ public class Trash : DragObject2D
         if (sprites.Length > 0)
         {
             spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+
+            BoxCollider2D col = GetComponent<BoxCollider2D>();
+
+            CapObjectSize();
+
+            if (col != null)
+            {
+                col.size = spriteRenderer.sprite.bounds.size;
+                col.offset = spriteRenderer.sprite.bounds.center;
+            }
+            
         }
         else
         {
