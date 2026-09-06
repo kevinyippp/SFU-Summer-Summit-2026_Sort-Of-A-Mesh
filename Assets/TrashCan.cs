@@ -16,7 +16,7 @@ public class TrashCan : MonoBehaviour
 
     public void HandleTrashDropped(Trash trash)
     {
-        if (trash == null)
+        if (trash == null || GameManager.IsGameOver)
         {
             return;
         }
@@ -26,14 +26,14 @@ public class TrashCan : MonoBehaviour
 
         int points = isCorrect ? 1 : -2;
 
-        if (GameManager.Instance != null)
+        if (Score.ScoreInstance != null)
         {
-            GameManager.Instance.ProcessTrashResult(points);
+            Score.ScoreInstance.AddPoints(points);
         }
         else
         {
             Debug.LogError(
-                "No active GameManager was found in the scene."
+                "No active Score was found in the scene."
             );
         }
 
